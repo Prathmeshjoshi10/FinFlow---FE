@@ -1,0 +1,71 @@
+<div class="container">
+  <mat-card class="responsive-card">
+    <mat-card-title>{{
+      isAddExpense ? "Add your Expense" : "Add your Income"
+    }}</mat-card-title>
+    <mat-card-content>
+      <form
+        [formGroup]="isAddExpense ? addExpenseForm : addIncomeForm"
+        (ngSubmit)="onSubmit()"
+      >
+        <div class="input-container">
+          <mat-form-field class="example-full-width">
+            <mat-label *ngIf="!isForView">{{
+              isAddExpense ? "Expense Title" : "Income Title"
+            }}</mat-label>
+            <input
+              matInput
+              [formControlName]="isAddExpense ? 'expenseTitle' : 'incomeTitle'"
+              [placeholder]="isAddExpense ? 'Expense In' : 'Income From'"
+            />
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label *ngIf="!isForView">{{
+              isAddExpense ? "Expense" : "Income"
+            }}</mat-label>
+            <input
+              matInput
+              [formControlName]="isAddExpense ? 'expenseValue' : 'incomeValue'"
+              [placeholder]="isAddExpense ? 'Expense Value' : 'Income Value'"
+            />
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label *ngIf="!isForView">Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              formControlName="date"
+              [max]="maxDate"
+            />
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker touchUi #picker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label *ngIf="!isForView">Tags</mat-label>
+            <input
+              matInput
+              formControlName="tags"
+              placeholder="You can add multiple tags separated with space in between"
+            />
+          </mat-form-field>
+        </div>
+        <div class="button-container">
+          <button
+            mat-raised-button
+            color="primary"
+            [disabled]="isAddExpense ? !addExpenseForm.valid : !addIncomeForm.valid"
+          >
+            Save
+          </button>
+          <button mat-stroked-button color="accent" (click)="onClose()">
+            Close
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
