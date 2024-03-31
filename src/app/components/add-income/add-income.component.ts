@@ -49,7 +49,7 @@ export class AddIncomeComponent implements OnInit {
     const formData = this.isAddExpense
       ? this.addExpenseForm.value
       : this.addIncomeForm.value;
-
+    formData.userId = localStorage.getItem('user');
     this.ieService.add(formData, this.isAddExpense).subscribe((res) => {
       console.log('res---->', res);
     });
